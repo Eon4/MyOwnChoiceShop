@@ -1,6 +1,11 @@
-import http from 'http';
+// import http from 'http';
 import express from 'express';
 import dotenv from 'dotenv';
+import db from './config/db.config.js'
+import {ProductRouter } from './routes/product.router.js'
+import { InitRouter } from './routes/init.sequelize.route.js';
+import { CountryRouter } from './routes/country.router.js';
+
 
 dotenv.config();
 
@@ -8,7 +13,11 @@ const app = express();
 
 const port = process.env.PORT;
 
-const api_key = process.env.APIKEY;
+app.use(ProductRouter);
+app.use(InitRouter);
+app.use(CountryRouter)
+
+app.use(express.urlencoded({ extended: true }));
 
 
 app.get("/", (req, res) => {
